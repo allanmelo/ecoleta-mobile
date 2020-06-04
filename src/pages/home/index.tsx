@@ -1,27 +1,44 @@
 import React from 'react';
-// import { AppLoading } from 'expo';
-import { View, Image, StyleSheet, Text } from 'react-native';
-// import { Roboto_400Regular, Roboto_500Medium } from '@expo-google-fonts/roboto';
-// import { Ubuntu_700Bold, useFonts } from '@expo-google-fonts/ubuntu';
+import { Feather as Icon } from '@expo/vector-icons'
+import { View, Image, ImageBackground, StyleSheet, Text } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native'
 
 const Home = () => {
 
-/*     const [fontsLoaded] = useFonts({
-        Roboto_400Regular,
-        Roboto_500Medium,
-        Ubuntu_700Bold
-    });
+  const navigation = useNavigation();
 
-    if (!fontsLoaded) {
-        return <AppLoading />
-    }; */
+  function navigateToPoints(){
+    navigation.navigate('Points');
+  }
 
-    return (
-        <View style={styles.container}>
-            <Image source={require('../../../assets/logo.png')} />
-            <Text>Hello World!git </Text>
-        </View>
-    );
+  return (
+    <ImageBackground 
+    source={require('../../../assets/home-background.png')} 
+    style={styles.container} 
+    imageStyle={{ width: 274, height: 368}}>
+
+      <View style={styles.main}>
+        <Image source={require('../../../assets/logo.png')} />
+        <Text style={styles.title}>Seu marketplace de coleta de resíduos</Text>
+        <Text style={styles.description}>Ajudamos pessoas a encontrarem pontos de coleta de forma eficiente.</Text>
+      </View>
+
+      <View style={styles.footer}>
+        <RectButton style={styles.button} onPress={navigateToPoints}>
+          <View style={styles.buttonIcon}>
+            <Text>
+              <Icon name="arrow-right" color="#FFF" size={20} />
+            </Text>
+          </View>
+          <Text style={styles.buttonText}>
+            Entrar
+          </Text>
+        </RectButton>
+      </View>
+
+    </ImageBackground>
+  );
 };
 
 const styles = StyleSheet.create({
