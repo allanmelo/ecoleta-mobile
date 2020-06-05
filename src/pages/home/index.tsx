@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Feather as Icon } from '@expo/vector-icons'
-import { View, Image, ImageBackground, StyleSheet, Text } from 'react-native';
+import { View, Image, ImageBackground, StyleSheet, Text, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native'
 
 const Home = () => {
-
+  const [ uf, setUf ] = useState('');
+  const [ city, setCity ] = useState('');
   const navigation = useNavigation();
 
   function navigateToPoints(){
-    navigation.navigate('Points');
+    navigation.navigate('Points', {
+      uf,
+      city,
+    });
   }
 
   return (
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
     <ImageBackground 
     source={require('../../../assets/home-background.png')} 
     style={styles.container} 
@@ -25,6 +30,8 @@ const Home = () => {
       </View>
 
       <View style={styles.footer}>
+        <TextInput style={styles.input} placeholder="Digite a UF" value={uf} onChangeText={setUf} maxLength={2} autoCapitalize="characters" autoCorrect={false} />
+        <TextInput style={styles.input} placeholder="Digite a cidade" value={city} autoCorrect={false} onChangeText={setCity} />
         <RectButton style={styles.button} onPress={navigateToPoints}>
           <View style={styles.buttonIcon}>
             <Text>
@@ -38,6 +45,7 @@ const Home = () => {
       </View>
 
     </ImageBackground>
+    </KeyboardAvoidingView>
   );
 };
 
